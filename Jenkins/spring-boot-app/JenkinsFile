@@ -15,6 +15,11 @@ tools {
         //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
       }
     }
+    stage('Clean') {
+      steps {
+        sh 'cd Jenkins/spring-boot-app/ && mvn clean'
+      }
+    }
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
