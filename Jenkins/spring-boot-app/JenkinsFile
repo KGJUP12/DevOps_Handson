@@ -9,11 +9,6 @@ tools {
         jdk 'jdk-17'  // Using the JDK 17 set in Global Tool Configuration
     }
   stages {
-stage('Clean Workspace') {
-      steps {
-        sh 'rm -rf *'
-      }
-    }
     stage('Checkout') {
       steps {
         sh 'echo passed'
