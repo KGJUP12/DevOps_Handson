@@ -5,9 +5,6 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
-tools {
-        jdk 'jdk-17'  // Using the JDK 17 set in Global Tool Configuration
-    }
   stages {
     stage('Checkout') {
       steps {
