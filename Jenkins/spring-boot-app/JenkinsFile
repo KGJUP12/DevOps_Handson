@@ -25,7 +25,7 @@ pipeline {
       }
       steps {
         withCredentials([string(credentialsId: 'sonar-cred', variable: 'SONAR_AUTH_TOKEN')]) {  //Fetch the credential from Jenkins Credentials Store, Bind it to an environment variable SONAR_AUTH-TOKEN and Make it temporarily available inside the block 
-          sh 'cd Jenkins/spring-boot-app/ && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+          sh 'cd Jenkins/spring-boot-app/ && mvn -X sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
         }
       }
     }
