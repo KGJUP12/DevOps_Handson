@@ -21,7 +21,7 @@ pipeline {
     }
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://34.230.75.246:9000/"
+        SONAR_URL = "http://54.146.227.134:9000/"
       }
       steps {
         withCredentials([string(credentialsId: 'sonar-cred', variable: 'SONAR_AUTH_TOKEN')]) {  //Fetch the credential from Jenkins Credentials Store, Bind it to an environment variable SONAR_AUTH-TOKEN and Make it temporarily available inside the block 
