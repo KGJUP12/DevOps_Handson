@@ -16,6 +16,8 @@ spec:
         - name: boardgame
           image: kavindra123/boardgame:latest # Image that will be used to containers in the cluster
           imagePullPolicy: Always
+          imagePullSecrets:
+          - name: my-dockerhub-secret
           ports:
             - containerPort: 8080 # The port that the container is running on in the cluster
 
