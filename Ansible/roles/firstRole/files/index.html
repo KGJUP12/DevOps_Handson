@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ABSiX Ansible Congrats Dashboard</title>
+  <style>
+    /* Background gradient */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #f0f0f0;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 40px;
+      user-select: none;
+    }
+
+    /* Glowing quote */
+    .quote {
+      background: linear-gradient(90deg, #ffafbd, #ffc3a0);
+      padding: 20px 15px;
+      font-size: 26px;
+      font-weight: 700;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 175, 189, 0.7);
+      width: 80%;
+      max-width: 600px;
+      margin-bottom: 30px;
+      color: #42275a;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Dashboard card */
+    .dashboard {
+      background: rgba(255, 255, 255, 0.15);
+      width: 340px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      padding: 30px 25px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .dashboard h2 {
+      margin-top: 0;
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #ffcc00;
+      text-shadow: 0 0 10px #ffd700;
+    }
+
+    .dashboard p {
+      font-size: 16px;
+      margin-bottom: 25px;
+      color: #fefefecc;
+    }
+
+    .username {
+      font-weight: 700;
+      color: #ffd966;
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+
+    .time-section {
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.4;
+      margin-bottom: 25px;
+      color: #eee;
+      border-top: 1px solid #fff4;
+      padding-top: 15px;
+    }
+    .time-section strong {
+      display: inline-block;
+      width: 140px;
+      color: #ffd966;
+    }
+
+    /* Button with glow */
+    .absix-button {
+      background: linear-gradient(45deg, #ff7e5f, #feb47b);
+      border: none;
+      padding: 12px 28px;
+      font-size: 17px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #42275a;
+      box-shadow: 0 0 15px #ff7e5f, 0 0 30px #feb47b;
+      transition: box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .absix-button:hover {
+      box-shadow: 0 0 25px #ff7e5f, 0 0 45px #feb47b;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quote" id="top-quote">
+    🌟 Congrats! You have successfully started your Ansible journey! 🌟
+  </div>
+
+  <div class="dashboard">
+    <h2>🎉 Congratulations! 🎉</h2>
+    <p>You have written your first Ansible playbook and completed it successfully.</p>
+    <div class="username" id="usernameDisplay">Hello, Guest!</div>
+
+    <div class="time-section">
+      <div><strong>Your Login Time:</strong> <span id="loginTime">Loading...</span></div>
+      <div><strong>Today's Date & Time:</strong> <span id="currentTime">Loading...</span></div>
+      <hr style="border: 1px solid #ffd96644; margin: 10px 0;">
+      <div><strong>Time in USA (New York):</strong> <span id="timeUSA">Loading...</span></div>
+      <div><strong>Time in Japan (Tokyo):</strong> <span id="timeJapan">Loading...</span></div>
+      <div><strong>Time in Germany (Berlin):</strong> <span id="timeGermany">Loading...</span></div>
+    </div>
+
+    <button class="absix-button" onclick="alert('Keep rocking your Ansible skills! 🚀')">Celebrate!</button>
+  </div>
+
+  <script>
+    // Simulate login time as page load time
+    var loginTime = new Date();
+
+    // Function to format date/time nicely
+    function formatDateTime(date) {
+      return date.toLocaleString('en-US', { hour12: false });
+    }
+
+    // Update all displayed times every 10 seconds
+    function updateTimes() {
+      var now = new Date();
+      document.getElementById('loginTime').textContent = formatDateTime(loginTime);
+      document.getElementById('currentTime').textContent = formatDateTime(now);
+
+      var usaTime = now.toLocaleString("en-US", { timeZone: "America/New_York", hour12: false });
+      document.getElementById('timeUSA').textContent = usaTime;
+
+      var japanTime = now.toLocaleString("en-US", { timeZone: "Asia/Tokyo", hour12: false });
+      document.getElementById('timeJapan').textContent = japanTime;
+
+      var germanyTime = now.toLocaleString("en-US", { timeZone: "Europe/Berlin", hour12: false });
+      document.getElementById('timeGermany').textContent = germanyTime;
+    }
+
+    // Get username from environment or fallback
+    function displayUsername() {
+      // Attempt to get from OS environment via JS is not possible due to browser security
+      // Instead, use browser stored name or prompt
+      var user = localStorage.getItem('ansibleUsername');
+      if (!user) {
+        user = prompt("Please enter your name to personalize this dashboard:", "Guest");
+        if (!user) user = "Guest";
+        localStorage.setItem('ansibleUsername', user);
+      }
+      document.getElementById('usernameDisplay').textContent = "Hello, " + user + "!";
+    }
+
+    // Initialize display
+    displayUsername();
+    updateTimes();
+    setInterval(updateTimes, 10000);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+# This file is for specifically passing variables into the Slave1 constructs only
+# the name of the file should be same as the group name in inventory thus i.e groups variables the variables applying to the groups in inventory
+
+password: 123456789

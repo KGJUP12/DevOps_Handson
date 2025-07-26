@@ -1,0 +1,6 @@
+---
+- name: Call Roles from here
+  become: true
+  hosts: all
+  roles:
+    - firstrole

@@ -1,0 +1,8 @@
+---
+# vars file for ec2_create_role
+
+ami: ami-0f918f7e67a3323f0
+subnet_name: vars_subnet_name
+ec2_name: vars_name
+instance_type: t2.micro
+assign_public_ip: false

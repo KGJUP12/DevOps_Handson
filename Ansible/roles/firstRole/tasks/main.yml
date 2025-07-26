@@ -1,0 +1,59 @@
+---
+# tasks file for firstRole
+- name: Install apache httpd 
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+  register: apache_installed
+
+- name: Copy file with name and permissions.
+  ansible.builtin.copy:
+    src: index.html
+    dest: /var/www/html/index.html
+    owner: ubuntu
+    group: sudo
+    mode: '0644'
+
+- name: Start Apache server
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true
+
+- name: Install multiple
+  apt: 
+    name: "{{ item }}"
+    state: present 
+  loop: 
+      - apache2 
+      - mysql-server
+      - git
+
+- name: Install apache only on Ubuntu
+  apt:
+    name: docker.io
+    state: present
+  register: docker_install
+  when: ansible_os_family == "Debian"
+
+- name: Show Docker install result
+  debug:
+    var: docker_install
+
+- name: Stop all running Docker containers
+  shell: docker ps -q | xargs -r docker stop
+  ignore_errors: true
+  register: stopped
+
+- name: Remove all Docker containers forcefully
+  shell: docker ps -a -q | xargs -r docker rm -f
+  ignore_errors: true
+  register: end
+
+- name: Run Nginx Server in docker.io
+  command: docker run -d -p 8081:80 nginx
+  when: 
+    - docker_install is succeeded
+    - apache_installed is succeeded
+    - stopped is succeeded
+    - end is succeeded

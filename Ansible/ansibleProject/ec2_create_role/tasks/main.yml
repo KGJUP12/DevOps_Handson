@@ -1,0 +1,23 @@
+--- 
+- name: Start EC2 instances with public IP
+  amazon.aws.ec2_instance:
+    name: "{{ item.name }}"
+    instance_type: "{{ instance_type }}"
+    image_id: "{{ item.image }}"
+    key_name: SecretAWSAccess
+    security_groups: asa
+    tags:
+      Environment: Testing
+    aws_access_key: "{{ awsSecretKey }}"
+    aws_secret_key: "{{ awsSecretPass }}"
+    wait: true
+  loop:
+# If u just give amiIds and keep 2 amis same then it will create only one instance of it because anisble expects one unique value each IDEMPOTENT
+#   - ami-0d0ad8bb301edb745 Amazon Linux
+#   - ami-0d0ad8bb301edb745 Ubuntu
+#   - ami-0f918f7e67a3323f0 Ubuntu 
+    - {image: "ami-0d0ad8bb301edb745", name: "FirstInstance"}    # Amazon Linux
+    - {image: "ami-0f918f7e67a3323f0", name: "SecondInstance"}  # Ubuntu
+    - {image: "ami-0f918f7e67a3323f0", name: "ThirdInstance"}   # Same Ubuntu but with different name
+  register: ec2_instances
+

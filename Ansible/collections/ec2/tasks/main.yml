@@ -1,0 +1,15 @@
+---
+# tasks file for ec2
+
+- name: Start an Instance with Public IP addr
+  amazon.aws.ec2_instance:
+    name: "ansible-instance"
+    instance_type: "{{ type }}"
+    security_group: default
+    region: ap-south-1
+    aws_access_key: "{{ aws_accessKey }}"
+    aws_secret_key: "{{ aws_secretKey }}"
+    image_id: ami-0b32d400456908bf9
+    tags:
+      Env: dev
+    state: present

@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  connection: local
+  name: Create Ec2 Instnace
+  become: true        
+  become_user: ubuntu
+  roles: 
+    - ec2_create_role

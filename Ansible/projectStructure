@@ -1,0 +1,32 @@
+project-ansible/
+├── ansible.cfg     # Keeping one global ansible.cfg file for default behaviours
+├── inventory/
+│   └── hosts.ini  # inventory file will contain all the host details
+├── playbooks/
+│   ├── deploy-auth.yml         # Microservice based specific playbook for specific changes
+│   ├── deploy-payments.yml     # This playbook will only have roles defined in them to call which role and nothing else
+│   ├── ...
+│   └── deploy-all.yml         # one common playbook for all common changes to microservices
+├── roles/
+│   ├── auth/
+|   |       ├── tasks/       # roles are a structured format way of using multiple ansible playbooks. Rather thn maintianing one file use a formatted way.
+|   |            └── main.yml   # this file contains the actual task list to be executed.
+|   |       ├── handlers/      
+|   |       ├── templates/ 
+|   |       ├── files/ 
+|   |       ├── vars/ 
+|   |       ├── defaults/   
+|   |       └── meta/  
+│   ├── payments/      # this roles will have several folders like vars, tasks, templates, defaults and etc..
+│   ├── ...
+│   └── common/         # similarily one common folder for all 
+└── group_vars/         # The group_vars/ directory is where you define variables for groups of hosts from your inventory.
+    ├── auth.yml              # Example: in inventory u define       [auth]
+    ├── payments.yml          #                                 auth1 ansible_host=10.0.0.10
+    └── all.yml
+
+
+                        # and then u define the url for service in auth.yml like 
+                        ; service_name: auth
+                        ; repo_url: https://github.com/example/auth-service.git
+                        ; port: 8000

@@ -1,0 +1,6 @@
+---
+- name: Create Ec2 using ansible
+  hosts: localhost
+  connection: local
+  roles:
+    - ec2

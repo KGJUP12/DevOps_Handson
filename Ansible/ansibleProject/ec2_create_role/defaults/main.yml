@@ -1,0 +1,8 @@
+---
+# defaults file for ec2_create_role
+
+ami: ami-0f918f7e67a3323f0
+subnet_name: default_subnet_name
+ec2_name: default_name
+instance_type: t2.nano
+assign_public_ip: false

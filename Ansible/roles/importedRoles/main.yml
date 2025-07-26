@@ -1,0 +1,6 @@
+---
+- name: Execute Imported Role from .ansible folder
+  hosts: slave1
+  become: true
+  roles:
+    - bsmeding.docker
